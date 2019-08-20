@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  imagePathUrl: './assets/images/',
+  baseUrl: 'http://192.168.43.179:8087/'
 };
 
 /*

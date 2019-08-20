@@ -68,6 +68,8 @@ export class PaymentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.dialogRef.close('NAN');
+
     });
   }
 

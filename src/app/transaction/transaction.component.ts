@@ -27,7 +27,7 @@ export class TransactionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllTransaction('123')
+    this.getAllTransaction('1')
   }
 
   applyFilter(filterValue: string) {

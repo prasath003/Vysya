@@ -55,6 +55,9 @@ export class ShoppingComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.productPay = 0;
+      this.productArray = [];
+
     });
   }
 

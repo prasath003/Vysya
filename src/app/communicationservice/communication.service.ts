@@ -53,7 +53,7 @@ export class CommunicationService {
       'author': 'fromapp'
     });*/
     return new Promise(resolve => {
-      this.http.get('http://192.168.43.207:8087/bank/user/prasath.muthaiyan@gmail.com/12345', {headers: headers, observe: 'response'})
+      this.http.get('http://192.168.43.179:8087/bank/user/prasath.muthaiyan@gmail.com/12345', {headers: headers, observe: 'response'})
         .subscribe((response: HttpResponse<UserResponse>) => {
             if (response.status === 200) {
               resolve(response.body);
@@ -76,22 +76,20 @@ export class CommunicationService {
     const headerKey = {'Content-Type': 'application/json'};
     const headers = new HttpHeaders(headerKey);
 
-    const body = JSON.stringify({
-      'otpDTO': {'otpGenId': otp, 'otp': otpId},
-      'paymentRequestDTO': localStorage.getItem('dataKey')
-    });
+    const body =  localStorage.getItem('dataKey');
 
     console.log('auth', body);
     return new Promise(resolve => {
-      this.http.post('http://192.168.43.179:8087/bank/authenticate/', body, {headers: headers, observe: 'response'})
+      //http://192.168.43.179:8087/bank/authenticate/175/10524/
+      this.http.post('http://192.168.43.179:8087/bank/authenticate/'+otp+'/'+otpId+'/', body, {headers: headers, observe: 'response'})
         .subscribe((response: HttpResponse<UserResponse>) => {
-            if (response.status === 201) {
+            if (response.status === 200) {
               resolve(response.body);
             } else {
-              resolve(true);
+              resolve(false);
             }
           }, error => {
-            resolve(true);
+            resolve(false);
           }
         );
     });
@@ -146,7 +144,7 @@ export class CommunicationService {
     const headers = new HttpHeaders(headerKey);
 
     return new Promise(resolve => {
-      this.http.get('http://192.168.43.207:8087/bank/user/' + userId, {headers: headers, observe: 'response'})
+      this.http.get('http://192.168.43.179:8087/bank/user/' + userId, {headers: headers, observe: 'response'})
         .subscribe((response) => {
             if (response.status === 200) {
               resolve(response.body);
@@ -165,7 +163,7 @@ export class CommunicationService {
     const headers = new HttpHeaders(headerKey);
 
     return new Promise(resolve => {
-      this.http.get('http://192.168.43.207:8087/bank/user/' + userId + '/statement/', {headers: headers, observe: 'response'})
+      this.http.get('http://192.168.43.179:8087/bank/user/' + userId + '/statement/', {headers: headers, observe: 'response'})
         .subscribe((response) => {
             if (response.status === 200) {
               resolve(response.body);
@@ -192,21 +190,22 @@ export class CommunicationService {
       'creditAmount': cardAmount,
       'creditCardNumber': cardNumber,
       'cvv': cardCvv,
-      'expDate': cardDate
+      'expDate': cardDate.replace(' / ','/')
     });
 
     localStorage.setItem('dataKey', body);
     console.log(body);
+
     return new Promise(resolve => {
       this.http.post('http://192.168.43.179:8087/bank/user/credit/', body, {headers: headers, observe: 'response'})
         .subscribe((response: HttpResponse<UserResponse>) => {
             if (response.status === 201) {
               resolve(response.body);
             } else {
-              resolve(false);
+              resolve(true);
             }
           }, error => {
-            resolve(false);
+            resolve(true);
           }
         );
     });

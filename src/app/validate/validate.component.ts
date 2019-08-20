@@ -45,8 +45,9 @@ export class ValidateComponent implements OnInit {
     if (!this.responseDetails) {
       this.openSnackBar('Failed', 'Close');
     } else {
+      console.log(this.responseDetails);
       if(this.responseDetails.message == 'Payment Successfull'){
-        this.dialogRef.close('NAN');
+        //this.dialogRef.close('NAN');
         this.openSnackBar('Success', 'Close');
       }else{
         this.openSnackBar('Card Not Valid','Close');

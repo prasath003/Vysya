@@ -24,7 +24,7 @@ export class AccountdetailsComponent implements OnInit {
   }
 
   async getAcccountDetails() {
-    this.responseResult = await this.communicate.getAccountDetails('123');
+    this.responseResult = await this.communicate.getAccountDetails('1');
     if (!this.responseResult) {
       this.openSnackBar('Failure', 'Close');
     } else {

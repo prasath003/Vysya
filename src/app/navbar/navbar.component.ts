@@ -5,7 +5,7 @@ import {map} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {TransactionComponent} from '../transaction/transaction.component';
-
+// import {environment} from '../../environments/environment';
 @Component ({
   // tslint:disable-next-line:component-selector
   selector: 'navbar',
@@ -21,7 +21,7 @@ export class NavbarComponent {
       map(result => result.matches)
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private router: Router, private dialog: MatDialog) {
+  constructor( private breakpointObserver: BreakpointObserver, private router: Router, private dialog: MatDialog) {
     this.mobile = window.screen.width === 360;
     /*
         if (window.screen.width === 360) { // 768px portrait
