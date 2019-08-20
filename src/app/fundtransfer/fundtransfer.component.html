@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2"></div>
+
+    <div class="col-lg-8">
+      <mat-card>
+        <mat-card-title style="align-content: center">Fund Transfer</mat-card-title>
+        <form [formGroup]="fundForm" autocomplete="off" novalidate (ngSubmit)="fundTransfer(fundForm.value)">
+          <mat-card-content>
+            <mat-form-field appearance="outline">
+              <mat-label>Enter Account Number</mat-label>
+              <input matInput type="text" placeholder="Account Number" formControlName="accoundId" id="accoundId">
+              <mat-hint align="end">Not more then 15 characters long.</mat-hint>
+              <mat-error *ngIf="hasError('accoundId', 'required')">Account Number is required</mat-error>
+              <mat-error *ngIf="hasError('accoundId', 'maxlength')">You have more than 15 characters</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Select Beneficiary</mat-label>
+              <mat-select formControlName="accoundname" required>
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let pay of payees" [value]="this.pay.name">
+                  {{pay.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="fundForm.hasError('required')">Please choose receiver</mat-error>
+              <mat-hint>{{fundForm.value?.sound}}</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Enter Amount</mat-label>
+              <input matInput type="number" placeholder="Amount" formControlName="amount" id="amount">
+              <mat-hint align="end">Not more then 5 characters long.</mat-hint>
+              <mat-error *ngIf="hasError('amount', 'required')">amount is required</mat-error>
+              <mat-error *ngIf="hasError('amount', 'maxlength')">You have more than 5 characters</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Enter Remarks</mat-label>
+              <input matInput type="text" placeholder="Account Holder Name" formControlName="remarks" id="remarks">
+              <mat-hint align="end">Not more then 10 characters long.</mat-hint>
+              <mat-error *ngIf="hasError('remarks', 'required')">Remarks is required</mat-error>
+              <mat-error *ngIf="hasError('remarks', 'maxlength')">You have more than 15 characters</mat-error>
+            </mat-form-field>
+          </mat-card-content>
+
+          <mat-card-actions align="center">
+            <!-- [disabled]="!payeeForm.valid"-->
+            <button mat-raised-button color="#023E7D">Confirm</button>
+          </mat-card-actions>
+
+        </form>
+      </mat-card>
+    </div>
+
+    <div class="col-lg-2"></div>
+  </div>
+</div>

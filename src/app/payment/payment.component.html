@@ -1,0 +1,57 @@
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Internet Banking
+      </mat-panel-title>
+      <mat-panel-description>
+
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+  </mat-expansion-panel>
+
+  <br>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Debit Card
+      </mat-panel-title>
+      <mat-panel-description>
+
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+  </mat-expansion-panel>
+
+  <br>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Credit Card
+      </mat-panel-title>
+      <mat-panel-description>
+      </mat-panel-description>
+
+    </mat-expansion-panel-header>
+    <!--#cardForm="ngForm"-->
+    <form [formGroup]="cardForm" (ngSubmit)="onSubmit(cardForm.value)" novalidate>
+      <mat-form-field>
+        <input matInput placeholder="Card Number"  formControlName="creditCard" id="cc-number" type="tel" autocomplete="cc-number" ccNumber>
+      </mat-form-field>
+
+      <br>
+      <mat-form-field>
+        <input placeholder="Card CVV" formControlName="cvc" matInput id="cc-cvc" type="tel" autocomplete="off" ccCVC>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input placeholder="Card Expiry Date" formControlName="expirationDate" matInput id="cc-exp-date" type="tel" autocomplete="cc-exp" ccExp>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" [disabled]="!cardForm.valid">Pay</button>
+    </form>
+  </mat-expansion-panel>
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+</mat-accordion>

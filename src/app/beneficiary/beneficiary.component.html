@@ -1,0 +1,113 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4"><h4>Manage Beneficiary</h4></div>
+    <div class="col-lg-4"></div>
+  </div>
+
+
+    <mat-card style="margin-top: 10px;">
+      <mat-card-title style="align-content: center">Add Beneficiary</mat-card-title>
+        <form [formGroup]="payeeForm" autocomplete="off" novalidate (ngSubmit)="payee(payeeForm.value)">
+          <mat-card-content>
+            <mat-grid-list cols="2" rowHeight="7:1">
+              <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                  <mat-label>Enter Account Number</mat-label>
+                  <input matInput type="text" placeholder="Account Number" formControlName="accoundId" id="accoundId">
+                  <mat-hint align="end">Not more then 15 characters long.</mat-hint>
+                  <mat-error *ngIf="hasError('accoundId', 'required')">Account Number is required</mat-error>
+                  <mat-error *ngIf="hasError('accoundId', 'maxlength')">You have more than 15 characters</mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+
+              <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                  <mat-label>Enter Account Holder Name</mat-label>
+                  <input matInput type="text" placeholder="Account Holder Name" formControlName="accoundname"
+                         id="accoundname">
+                  <mat-hint align="end">Not more then 10 characters long.</mat-hint>
+                  <mat-error *ngIf="hasError('accoundname', 'required')">Account Holder Name is required</mat-error>
+                  <mat-error *ngIf="hasError('accoundname', 'maxlength')">You have more than 10 characters</mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+
+            <mat-grid-tile>
+              <mat-form-field appearance="outline">
+                <mat-label>Enter IFSC Code</mat-label>
+                <input matInput type="text" placeholder="IFSC Code" formControlName="accountifsc" id="accountifsc">
+                <mat-hint align="end">Not more then 10 characters long.</mat-hint>
+                <mat-error *ngIf="hasError('accountifsc', 'required')">IFSC Code is required</mat-error>
+                <mat-error *ngIf="hasError('accountifsc', 'maxlength')">You have more than 10 characters</mat-error>
+              </mat-form-field>
+            </mat-grid-tile>
+            </mat-grid-list>
+          </mat-card-content>
+
+          <mat-card-actions align="center">
+            <!-- [disabled]="!payeeForm.valid"-->
+            <button *ngIf="!updateP" mat-raised-button color="#023E7D">Add Beneficiary</button>
+            <button *ngIf="updateP" mat-raised-button color="#023E7D">Update Beneficiary</button>
+          </mat-card-actions>
+
+        </form>
+
+      <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    </mat-card>
+
+  <br>
+  <div class="row">
+    <div class="col-lg-12">
+      <mat-card-title style="align-content: center">List of Beneficiary</mat-card-title>
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+      </mat-form-field>
+
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Id</th>
+            <td mat-cell *matCellDef="let element"> {{element.payeeId}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Account Number</th>
+            <td mat-cell *matCellDef="let element"> {{element.accountNo}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="weight">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> IFSC Code</th>
+            <td mat-cell *matCellDef="let element"> {{element.ifsc}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="symbol">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Account Name</th>
+            <td mat-cell *matCellDef="let element"> {{element.payeeName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Action</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-grid-list cols="2" rowHeight="3:1">
+                <mat-grid-tile>
+                  <button mat-button style="background-color: #023E7D; color: white" (click)="update(element.payeeId,element.accountNo,element.ifsc,element.payeeName)">Update</button>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                  <button mat-button style="background-color: #023E7D; color: white" (click)="delete(element.symbol)">Delete</button>
+                </mat-grid-tile>
+              </mat-grid-list>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+      </div>
+    </div>
+  </div>
+</div>
+

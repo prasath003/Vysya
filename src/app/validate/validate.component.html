@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+      <div class="col-lg-12">
+        <form [formGroup]="otpForm" autocomplete="off" novalidate (ngSubmit)="otpVerify(otpForm.value)">
+        <mat-form-field appearance="outline">
+          <mat-label>Enter OTP</mat-label>
+          <input matInput type="number" placeholder="OTP" formControlName="otp" id="otp">
+          <mat-hint align="end">Not more then 4 numbers</mat-hint>
+          <mat-error *ngIf="hasError('otp', 'required')">OTP is required</mat-error>
+          <mat-error *ngIf="hasError('otp', 'maxlength')">You have more than 4 characters</mat-error>
+          <mat-error *ngIf="hasError('otp', 'minlength')">You have less than 4 characters</mat-error>
+        </mat-form-field>
+          <br>
+
+          <mat-card-actions align="center">
+            <button mat-raised-button color="primary" [disabled]="!otpForm.valid">Submit</button>
+          </mat-card-actions>
+
+        </form>
+      </div>
+
+
+  </div>
+</div>

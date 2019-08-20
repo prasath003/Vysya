@@ -1,0 +1,62 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+      #drawer
+      class="sidenav"
+      fixedInViewport="true"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="!(isHandset$ | async)">
+    <!--<mat-toolbar color="primary">
+
+    </mat-toolbar>-->
+    <mat-card style="background-color: #023E7D">
+      <img style="width: 100px; height: 70px; border-radius: 20px;" src="assets/images/inglogonotransparent.png"
+           alt="profile"/>
+      <!-- <br>
+       <mat-card-footer style="text-align: center; color: white;"></mat-card-footer>-->
+      <br>
+    </mat-card>
+
+    <!--Mobile Menu--->
+    <mat-nav-list *ngIf="isHandset$ | async">
+      <a mat-list-item routerLink="account" [routerLinkActive]="'is-active'" (click)="drawer.toggle()">Account
+        Details</a>
+      <a mat-list-item routerLink="payee" [routerLinkActive]="'is-active'">Manage beneficiary</a>
+      <a mat-list-item routerLink="transfer" [routerLinkActive]="'is-active'">Fund Transfer</a>
+      <a mat-list-item routerLink="history" [routerLinkActive]="'is-active'" (click)="drawer.toggle()">Transaction</a>
+      <a mat-list-item routerLink="shop" [routerLinkActive]="'is-active'" (click)="drawer.toggle()">Shopping</a>
+    </mat-nav-list>
+
+    <!--Web Menu--->
+    <mat-nav-list *ngIf="!(isHandset$ | async)">
+      <a mat-list-item routerLink="account" [routerLinkActive]="'is-active'">Account Details</a>
+      <a mat-list-item routerLink="payee" [routerLinkActive]="'is-active'">Manage beneficiary</a>
+      <a mat-list-item routerLink="transfer" [routerLinkActive]="'is-active'">Fund Transfer</a>
+      <a mat-list-item routerLink="history" [routerLinkActive]="'is-active'">Transactions</a>
+      <a mat-list-item routerLink="shop" [routerLinkActive]="'is-active'">Shopping</a>
+    </mat-nav-list>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar style="background-color: #023E7D">
+      <button
+        type="button" aria-label="Toggle sidenav" mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <img style="width: 50px; height: 50px; border-radius: 20px;" src="assets/images/profile2.png" alt="profile"/>
+      <span style="color: white">User Name</span>
+    </mat-toolbar>
+
+    <mat-card>
+      <mat-card-content>
+        <!--<button mat-raised-button (click)="openDialog()">Open Dialog</button>-->
+        <router-outlet></router-outlet>
+      </mat-card-content>
+    </mat-card>
+
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
